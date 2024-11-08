@@ -22,6 +22,9 @@ func main() {
 }
 
 // generatePassword returns a random, cryptographically secure Apple-style password
+//
+// See: https://rmondello.com/2024/10/07/apple-passwords-generated-strong-password-format/
+// https://www.youtube.com/watch?v=-0dwX2kf6Oc&t=1110s
 func generatePassword() string {
 	// Examples from actual Apple password generator:
 	// 1.  xUvbeh-7giqma-kuspaq
@@ -51,7 +54,8 @@ func generatePassword() string {
 	parts[ucasePart][ucasePos] = parts[ucasePart][ucasePos] - 32
 
 	// Insert digit in one of the parts at either the start or the end
-	// But the first blob apparently cannot start with a digit
+	// But the first blob cannot *start* with a digit, as per https://rmondello.com/2024/10/07/apple-passwords-generated-strong-password-format/
+	// Quote: "There are five positions for where the digit can go, which is on either side of the hyphen or at the end of the password."
 	digitPart := randInt(3)
 	if randInt(2) == 0 && digitPart != 0 {
 		// Insert at the start

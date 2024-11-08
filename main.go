@@ -37,7 +37,14 @@ func generatePassword() []rune {
 	pwd18[position] = rune('A' + rand.IntN(26))
 
 	// Now format with dashes
-	pwd20 := append(append(append(append(pwd18[:6], '-'), pwd18[6:12]...), '-'), pwd18[12:18]...)
+	pwd20 := make([]rune, 20)
+	for s, d := 0, 0; s < len(pwd18); s, d = s+1, d+1 {
+		if d%7 == 6 {
+			pwd20[d] = '-'
+			d++
+		}
+		pwd20[d] = pwd18[s]
+	}
 
 	return pwd20
 }

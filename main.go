@@ -3,6 +3,7 @@ package main
 import (
 	"crypto/rand"
 	"flag"
+	"fmt"
 	"math/big"
 )
 
@@ -16,7 +17,7 @@ func main() {
 	flag.Parse()
 	for i := 0; i < *repeat; i++ {
 		password := generatePassword()
-		println(string(password))
+		fmt.Println(string(password))
 	}
 }
 

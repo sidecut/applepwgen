@@ -5,8 +5,8 @@ import (
 )
 
 var (
-	vowels     = []rune("aeiou")
-	consonants = []rune("bcdfghjklmnpqrstvwxyz")
+	vowels     = []rune("aeiouy")
+	consonants = []rune("bcdfghjklmnpqrstvwxz")
 )
 
 func main() {

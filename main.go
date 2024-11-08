@@ -1,18 +1,22 @@
 package main
 
 import (
+	"flag"
 	"math/rand/v2"
 )
 
 var (
 	vowels     = []rune("aeiouy")
 	consonants = []rune("bcdfghjklmnpqrstvwxz")
+	repeat     = flag.Int("repeat", 1, "Number of passwords to generate")
 )
 
 func main() {
-	password := generatePassword()
-
-	println(string(password))
+	flag.Parse()
+	for i := 0; i < *repeat; i++ {
+		password := generatePassword()
+		println(string(password))
+	}
 }
 
 // Example:

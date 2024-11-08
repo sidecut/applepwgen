@@ -8,7 +8,7 @@ import (
 var (
 	vowels     = []rune("aeiouy")
 	consonants = []rune("bcdfghjklmnpqrstvwxz")
-	repeat     = flag.Int("repeat", 1, "Number of passwords to generate")
+	repeat     = flag.Int("n", 1, "Number of passwords to generate")
 )
 
 func main() {

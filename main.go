@@ -15,36 +15,51 @@ func main() {
 	println(string(password))
 }
 
-func generatePassword() []rune {
-	pwd18 := make([]rune, 18)
-	for i := 0; i < len(pwd18); i++ {
-		// if i%7 == 6 {
-		// 	password[i] = '-'
-		// } else
-		if i%2 == 0 {
-			pwd18[i] = consonants[rand.IntN(len(consonants))]
-		} else {
-			pwd18[i] = vowels[rand.IntN(len(vowels))]
-		}
+// Example:
+// 1.  xUvbeh-7giqma-kuspaq
+// 2.  dyCraq-0qycvu-buxgog
+// 3.  qAktyh-ciwfoz-hywsu0
+// 4.  zinpyt-kumgy3-kIfwox
+// 5.  piNgof-wyckeb-8zawhy
+// 6.  zozcoz-9nezvy-romdEv
+// 7.  fibjec-3Birwu-tymzun
+// 8.  mybba9-nobzin-vuvcoS
+// 9.  pekduk-3sikqa-tizgAm
+// 10. sazmyf-muskaX-hyhde1
+func generatePassword() string {
+
+	parts := make([][]rune, 3)
+	for i := 0; i < 3; i++ {
+		parts[i] = []rune(generateSyllable() + generateSyllable())
 	}
 
-	// Add a number at a random position
-	position := rand.IntN(len(pwd18))
-	pwd18[position] = rune('0' + rand.IntN(10))
+	// Print the parts
+	// fmt.Println(string(parts[0]))
+	// fmt.Println(string(parts[1]))
+	// fmt.Println(string(parts[2]))
 
-	// Add an uppercase letter at a random position
-	position = rand.IntN(len(pwd18))
-	pwd18[position] = rune('A' + rand.IntN(26))
+	// Capitalize one letter in one of the parts
+	ucasePart := rand.IntN(3)
+	ucasePos := rand.IntN(6)
+	parts[ucasePart][ucasePos] = parts[ucasePart][ucasePos] - 32
 
-	// Now format with dashes
-	pwd20 := make([]rune, 20)
-	for s, d := 0, 0; s < len(pwd18); s, d = s+1, d+1 {
-		if d%7 == 6 {
-			pwd20[d] = '-'
-			d++
-		}
-		pwd20[d] = pwd18[s]
+	// Insert digit in one of the parts at either the start or the end
+	// But the first blob apparently cannot start with a digit
+	digitPart := rand.IntN(3)
+	if rand.IntN(2) == 0 && digitPart != 0 {
+		// Insert at the start
+		parts[digitPart] = append([]rune{rune(rand.IntN(10) + 48)}, parts[digitPart][0:5]...)
+	} else {
+		// Replace at the end
+		parts[digitPart][5] = rune(rand.IntN(10) + 48)
 	}
 
-	return pwd20
+	return string(parts[0]) + "-" + string(parts[1]) + "-" + string(parts[2])
+}
+
+func generateSyllable() string {
+	// return random consonant + random vowel + random consonant
+	return string(consonants[rand.IntN(len(consonants))]) +
+		string(vowels[rand.IntN(len(vowels))]) +
+		string(consonants[rand.IntN(len(consonants))])
 }

@@ -21,18 +21,19 @@ func main() {
 	}
 }
 
-// Example:
-// 1.  xUvbeh-7giqma-kuspaq
-// 2.  dyCraq-0qycvu-buxgog
-// 3.  qAktyh-ciwfoz-hywsu0
-// 4.  zinpyt-kumgy3-kIfwox
-// 5.  piNgof-wyckeb-8zawhy
-// 6.  zozcoz-9nezvy-romdEv
-// 7.  fibjec-3Birwu-tymzun
-// 8.  mybba9-nobzin-vuvcoS
-// 9.  pekduk-3sikqa-tizgAm
-// 10. sazmyf-muskaX-hyhde1
+// generatePassword returns a random, cryptographically secure Apple-style password
 func generatePassword() string {
+	// Examples from actual Apple password generator:
+	// 1.  xUvbeh-7giqma-kuspaq
+	// 2.  dyCraq-0qycvu-buxgog
+	// 3.  qAktyh-ciwfoz-hywsu0
+	// 4.  zinpyt-kumgy3-kIfwox
+	// 5.  piNgof-wyckeb-8zawhy
+	// 6.  zozcoz-9nezvy-romdEv
+	// 7.  fibjec-3Birwu-tymzun
+	// 8.  mybba9-nobzin-vuvcoS
+	// 9.  pekduk-3sikqa-tizgAm
+	// 10. sazmyf-muskaX-hyhde1
 
 	parts := make([][]rune, 3)
 	for i := 0; i < 3; i++ {
@@ -63,14 +64,16 @@ func generatePassword() string {
 	return string(parts[0]) + "-" + string(parts[1]) + "-" + string(parts[2])
 }
 
-func randInt(i int) int {
-	n, err := rand.Int(rand.Reader, big.NewInt(int64(i)))
+// randInt returns a random integer in the range [0, n)
+func randInt(n int) int {
+	r, err := rand.Int(rand.Reader, big.NewInt(int64(n)))
 	if err != nil {
 		panic(err)
 	}
-	return int(n.Int64())
+	return int(r.Int64())
 }
 
+// generateSyllable returns a random 3-letter syllable
 func generateSyllable() string {
 	// return random consonant + random vowel + random consonant
 	return string(consonants[randInt(len(consonants))]) +

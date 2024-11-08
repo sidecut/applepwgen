@@ -1,14 +1,15 @@
 package main
 
 import (
+	"crypto/rand"
 	"flag"
-	"math/rand/v2"
+	"math/big"
 )
 
 var (
 	vowels     = []rune("aeiouy")
 	consonants = []rune("bcdfghjklmnpqrstvwxz")
-	repeat     = flag.Int("n", 1, "Number of non-cryptographically secure passwords to generate")
+	repeat     = flag.Int("n", 1, "Number of cryptographically secure passwords to generate")
 )
 
 func main() {
@@ -43,27 +44,35 @@ func generatePassword() string {
 	// fmt.Println(string(parts[2]))
 
 	// Capitalize one letter in one of the parts
-	ucasePart := rand.IntN(3)
-	ucasePos := rand.IntN(6)
+	ucasePart := randInt(3)
+	ucasePos := randInt(6)
 	parts[ucasePart][ucasePos] = parts[ucasePart][ucasePos] - 32
 
 	// Insert digit in one of the parts at either the start or the end
 	// But the first blob apparently cannot start with a digit
-	digitPart := rand.IntN(3)
-	if rand.IntN(2) == 0 && digitPart != 0 {
+	digitPart := randInt(3)
+	if randInt(2) == 0 && digitPart != 0 {
 		// Insert at the start
-		parts[digitPart] = append([]rune{rune(rand.IntN(10) + 48)}, parts[digitPart][0:5]...)
+		parts[digitPart] = append([]rune{rune(randInt(10) + 48)}, parts[digitPart][0:5]...)
 	} else {
 		// Replace at the end
-		parts[digitPart][5] = rune(rand.IntN(10) + 48)
+		parts[digitPart][5] = rune(randInt(10) + 48)
 	}
 
 	return string(parts[0]) + "-" + string(parts[1]) + "-" + string(parts[2])
 }
 
+func randInt(i int) int {
+	n, err := rand.Int(rand.Reader, big.NewInt(int64(i)))
+	if err != nil {
+		panic(err)
+	}
+	return int(n.Int64())
+}
+
 func generateSyllable() string {
 	// return random consonant + random vowel + random consonant
-	return string(consonants[rand.IntN(len(consonants))]) +
-		string(vowels[rand.IntN(len(vowels))]) +
-		string(consonants[rand.IntN(len(consonants))])
+	return string(consonants[randInt(len(consonants))]) +
+		string(vowels[randInt(len(vowels))]) +
+		string(consonants[randInt(len(consonants))])
 }

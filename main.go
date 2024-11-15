@@ -8,16 +8,25 @@ import (
 )
 
 var (
-	vowels     = []rune("aeiouy")
-	consonants = []rune("bcdfghjklmnpqrstvwxz")
-	repeat     = flag.Int("n", 1, "Number of cryptographically secure passwords to generate")
+	vowels      = []rune("aeiouy")
+	consonants  = []rune("bcdfghjklmnpqrstvwxz")
+	repeat      = flag.Int("n", 1, "Number of cryptographically secure passwords to generate")
+	skipNewline = flag.Bool("s", false, "Do not print the trailing newline character")
 )
 
 func main() {
 	flag.Parse()
-	for i := 0; i < *repeat; i++ {
+	for i := 0; i < *repeat-1; i++ {
 		password := generatePassword()
 		fmt.Println(string(password))
+	}
+	if *repeat > 0 {
+		password := generatePassword()
+		if *skipNewline {
+			fmt.Print(string(password))
+		} else {
+			fmt.Println(string(password))
+		}
 	}
 }
 

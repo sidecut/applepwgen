@@ -11,7 +11,7 @@ var (
 	vowels      = []rune("aeiouy")
 	consonants  = []rune("bcdfghjklmnpqrstvwxz")
 	repeat      = flag.Int("n", 1, "Number of cryptographically secure passwords to generate")
-	skipNewline = flag.Bool("s", false, "Do not print the trailing newline character")
+	skipNewline = flag.Bool("s", false, "Do not print the trailing newline character\nExample: applepw -s | pbcopy; echo $(pbpaste)")
 )
 
 func main() {

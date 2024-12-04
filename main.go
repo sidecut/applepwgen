@@ -5,29 +5,132 @@ import (
 	"flag"
 	"fmt"
 	"math/big"
+	"strings"
 )
 
 var (
 	vowels      = []rune("aeiouy")
 	consonants  = []rune("bcdfghjklmnpqrstvwxz")
+	numbers     = []rune("0123456789")
+	symbols     = []rune("!@#$%^&*-_+=")
 	repeat      = flag.Int("n", 1, "Number of cryptographically secure passwords to generate")
-	skipNewline = flag.Bool("s", false, "Do not print the trailing newline character\nExample: applepw -s | pbcopy; echo $(pbpaste)")
+	skipNewline = flag.Bool("s", false, "Do not print the trailing newline character")
+	style       = flag.String("style", "apple", "Password style: apple, google, or microsoft")
+	length      = flag.Int("length", 20, "Password length (only applies to google and microsoft styles)")
 )
 
 func main() {
 	flag.Parse()
 	for i := 0; i < *repeat-1; i++ {
-		password := generatePassword()
-		fmt.Println(string(password))
+		password := generatePasswordByStyle(*style)
+		fmt.Println(password)
 	}
 	if *repeat > 0 {
-		password := generatePassword()
+		password := generatePasswordByStyle(*style)
 		if *skipNewline {
-			fmt.Print(string(password))
+			fmt.Print(password)
 		} else {
-			fmt.Println(string(password))
+			fmt.Println(password)
 		}
 	}
+}
+
+func generatePasswordByStyle(style string) string {
+	switch strings.ToLower(style) {
+	case "apple":
+		return generateApplePassword()
+	case "google":
+		return generateGooglePassword()
+	case "microsoft":
+		return generateMicrosoftPassword()
+	default:
+		return generateApplePassword()
+	}
+}
+
+// Original Apple password generator (keeping your existing implementation)
+func generateApplePassword() string {
+	parts := make([][]rune, 3)
+	for i := 0; i < 3; i++ {
+		parts[i] = []rune(generateSyllable() + generateSyllable())
+	}
+
+	ucasePart := randInt(3)
+	ucasePos := randInt(6)
+	parts[ucasePart][ucasePos] = parts[ucasePart][ucasePos] - 32
+
+	digitPart := randInt(3)
+	if randInt(2) == 0 && digitPart != 0 {
+		parts[digitPart] = append([]rune{rune(randInt(10) + 48)}, parts[digitPart][0:5]...)
+	} else {
+		parts[digitPart][5] = rune(randInt(10) + 48)
+	}
+
+	return string(parts[0]) + "-" + string(parts[1]) + "-" + string(parts[2])
+}
+
+// Google-style password generator
+// Typically includes uppercase, lowercase, numbers, and symbols
+func generateGooglePassword() string {
+	length := *length
+	if length < 12 {
+		length = 12 // Google typically recommends at least 12 characters
+	}
+
+	// Ensure at least one of each required character type
+	password := []rune{
+		consonants[randInt(len(consonants))] - 32, // Uppercase
+		vowels[randInt(len(vowels))],              // Lowercase
+		numbers[randInt(len(numbers))],            // Number
+		symbols[randInt(len(symbols))],            // Symbol
+	}
+
+	// Fill the rest with random characters
+	allChars := append(append(append(consonants, vowels...), numbers...), symbols...)
+	for i := len(password); i < length; i++ {
+		password = append(password, allChars[randInt(len(allChars))])
+	}
+
+	// Shuffle the password
+	for i := len(password) - 1; i > 0; i-- {
+		j := randInt(i + 1)
+		password[i], password[j] = password[j], password[i]
+	}
+
+	return string(password)
+}
+
+// Microsoft-style password generator
+// Similar to Google but with different symbol preferences
+func generateMicrosoftPassword() string {
+	length := *length
+	if length < 8 {
+		length = 8 // Microsoft typically requires at least 8 characters
+	}
+
+	msSymbols := []rune("!@#$%^&*-_+=,.?")
+
+	// Ensure at least one of each required character type
+	password := []rune{
+		consonants[randInt(len(consonants))] - 32, // Uppercase
+		vowels[randInt(len(vowels))],              // Lowercase
+		numbers[randInt(len(numbers))],            // Number
+		msSymbols[randInt(len(msSymbols))],        // Microsoft-specific symbols
+	}
+
+	// Fill the rest with random characters
+	allChars := append(append(append(consonants, vowels...), numbers...), msSymbols...)
+	for i := len(password); i < length; i++ {
+		password = append(password, allChars[randInt(len(allChars))])
+	}
+
+	// Shuffle the password
+	for i := len(password) - 1; i > 0; i-- {
+		j := randInt(i + 1)
+		password[i], password[j] = password[j], password[i]
+	}
+
+	return string(password)
 }
 
 // generatePassword returns a random, cryptographically secure Apple-style password

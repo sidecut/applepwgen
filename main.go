@@ -1,63 +1,42 @@
 package main
 
 import (
-	"fmt"
 	"math/rand"
 	"strings"
 	"time"
 )
 
-// generateApplePassword creates an Apple-style password with:
-// - 2 uppercase letters
-// - 6 lowercase letters
-// - 2 numbers
-// - 2 special characters
-func generateApplePassword() string {
-	const (
-		upperChars   = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-		lowerChars   = "abcdefghijklmnopqrstuvwxyz"
-		numbers      = "0123456789"
-		specialChars = "!@#$%^&*"
-	)
+// generateAppleStylePassword creates an easy-to-pronounce password similar to Apple's style
+// with alternating consonants and vowels, followed by numbers
+func generateAppleStylePassword(length int) string {
+	consonants := []string{"b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "r", "s", "t", "v", "w", "y", "z"}
+	vowels := []string{"a", "e", "i", "o", "u"}
+	numbers := []string{"2", "3", "4", "5", "6", "7", "8", "9"}
 
 	rand.Seed(time.Now().UnixNano())
 
-	// Generate components
-	upper := make([]string, 2)
-	for i := range upper {
-		upper[i] = string(upperChars[rand.Intn(len(upperChars))])
+	var password strings.Builder
+	letterLength := length - 2 // Reserve 2 characters for numbers
+
+	// Alternate between consonants and vowels
+	for i := 0; i < letterLength; i++ {
+		if i%2 == 0 {
+			password.WriteString(consonants[rand.Intn(len(consonants))])
+		} else {
+			password.WriteString(vowels[rand.Intn(len(vowels))])
+		}
 	}
 
-	lower := make([]string, 6)
-	for i := range lower {
-		lower[i] = string(lowerChars[rand.Intn(len(lowerChars))])
+	// Add two random numbers at the end
+	for i := 0; i < 2; i++ {
+		password.WriteString(numbers[rand.Intn(len(numbers))])
 	}
 
-	nums := make([]string, 2)
-	for i := range nums {
-		nums[i] = string(numbers[rand.Intn(len(numbers))])
-	}
-
-	special := make([]string, 2)
-	for i := range special {
-		special[i] = string(specialChars[rand.Intn(len(specialChars))])
-	}
-
-	// Combine all parts
-	allParts := append(upper, append(lower, append(nums, special...)...)...)
-
-	// Shuffle the combined password
-	rand.Shuffle(len(allParts), func(i, j int) {
-		allParts[i], allParts[j] = allParts[j], allParts[i]
-	})
-
-	return strings.Join(allParts, "")
+	return password.String()
 }
 
 func main() {
-	// Generate and print 5 passwords
-	for i := 0; i < 5; i++ {
-		password := generateApplePassword()
-		fmt.Printf("Generated Password %d: %s\n", i+1, password)
-	}
+	// Generate a password with 8 characters (6 letters + 2 numbers)
+	password := generateAppleStylePassword(8)
+	println(password)
 }

@@ -68,7 +68,7 @@ func generatePassword() -> String {
 
 // Main execution
 let args = Arguments()
-for i in 0..<args.repeatCount - 1 {
+for _ in 0..<args.repeatCount - 1 {
     print(generatePassword())
 }
 

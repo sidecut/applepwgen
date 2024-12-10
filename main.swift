@@ -1,23 +1,67 @@
-import Foundation
+import Darwin
+import Security
 
-// Command line arguments handling
 struct Arguments {
     var repeatCount: Int = 1
     var skipNewline: Bool = false
+    var showHelp: Bool = false
 
     init() {
         let args = CommandLine.arguments
+        let validFlags = Set(["-n", "-s", "-h", "--help"])
+
+        // Check for help flags or invalid arguments
         for (index, arg) in args.enumerated() {
-            if arg == "-n" && index + 1 < args.count {
-                self.repeatCount = Int(args[index + 1]) ?? 1
+            if arg.hasPrefix("-") {
+                if arg == "-h" || arg == "--help" {
+                    showHelp = true
+                    break
+                } else if !validFlags.contains(arg) {
+                    showHelp = true
+                    print("Error: Unknown option '\(arg)'")
+                    break
+                } else if arg == "-n" {
+                    if index + 1 >= args.count || Int(args[index + 1]) == nil {
+                        showHelp = true
+                        print("Error: -n requires a number argument")
+                        break
+                    }
+                }
             }
-            if arg == "-s" {
-                self.skipNewline = true
+        }
+
+        // Only parse other arguments if help is not needed
+        if !showHelp {
+            for (index, arg) in args.enumerated() {
+                if arg == "-n" && index + 1 < args.count {
+                    self.repeatCount = Int(args[index + 1]) ?? 1
+                }
+                if arg == "-s" {
+                    self.skipNewline = true
+                }
             }
         }
     }
-}
 
+    func printHelp() {
+        let programName = CommandLine.arguments[0].split(separator: "/").last ?? "program"
+        print(
+            """
+            Usage: \(programName) [options]
+
+            Generate Apple-style memorable passwords.
+
+            Options:
+              -n <count>   Generate <count> passwords (default: 1)
+              -s           Skip newline after output
+              -h, --help   Show this help message
+
+            Example:
+              \(programName) -n 5     Generate 5 passwords
+              \(programName) -s       Generate 1 password without newline
+            """)
+    }
+}
 let vowels = Array("aeiouy")
 let consonants = Array("bcdfghjklmnpqrstvwxz")
 
@@ -68,6 +112,13 @@ func generatePassword() -> String {
 
 // Main execution
 let args = Arguments()
+
+if args.showHelp {
+    args.printHelp()
+    exit(1)
+}
+
+// Rest of the existing code remains the same
 for _ in 0..<args.repeatCount - 1 {
     print(generatePassword())
 }

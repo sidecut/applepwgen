@@ -56,8 +56,9 @@ struct Arguments {
               -h, --help   Show this help message
 
             Example:
-              \(programName) -n 5     Generate 5 passwords
-              \(programName) -s       Generate 1 password without newline
+              \(programName) -n 5            Generate 5 passwords
+              \(programName) -s              Generate 1 password without newline
+              \(programName) -s | pbcopy     Generate password and copy to clipboard
             """)
     }
 }

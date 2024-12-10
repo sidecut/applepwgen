@@ -1,5 +1,4 @@
-import Darwin
-import Security
+import SecurityFoundation
 
 struct Arguments {
     var repeatCount: Int = 1

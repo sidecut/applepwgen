@@ -88,11 +88,6 @@ func generatePassword() -> String {
     // Convert parts to arrays of characters for manipulation
     var charParts = parts.map { Array($0) }
 
-    // Capitalize one random letter in a random part
-    let ucasePart = randInt(3)
-    let ucasePos = randInt(6)
-    charParts[ucasePart][ucasePos] = Character(charParts[ucasePart][ucasePos].uppercased())
-
     // Insert digit in one of the parts
     let digitPart = randInt(3)
     let digit = String(randInt(10))
@@ -104,6 +99,20 @@ func generatePassword() -> String {
     } else {
         // Replace at end
         charParts[digitPart][5] = Character(digit)
+    }
+
+    // Capitalize one random letter in a random part
+    while true {
+        let ucasePart = randInt(3)
+        let ucasePos = randInt(6)
+
+        // continue if the character is not a letter
+        guard charParts[ucasePart][ucasePos].isLetter else {
+            continue
+        }
+
+        charParts[ucasePart][ucasePos] = Character(charParts[ucasePart][ucasePos].uppercased())
+        break
     }
 
     // Join parts with hyphens

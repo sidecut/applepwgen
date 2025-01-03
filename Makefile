@@ -1,6 +1,6 @@
 # Define variables
-BINARY_NAME=my-tool  # Replace with your tool's name
-BUILD_DIR=build
+BINARY_NAME=applepw
+BUILD_DIR=.build
 RELEASE_DIR=$(BUILD_DIR)/release
 
 # Define the install directory
@@ -31,4 +31,3 @@ clean:
 # Uninstall the tool
 uninstall:
 	rm -f $(INSTALL_DIR)/$(BINARY_NAME)
-	

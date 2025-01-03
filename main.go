@@ -57,11 +57,6 @@ func generatePassword() string {
 	// fmt.Println(string(parts[1]))
 	// fmt.Println(string(parts[2]))
 
-	// Capitalize one letter in one of the parts
-	ucasePart := randInt(3)
-	ucasePos := randInt(6)
-	parts[ucasePart][ucasePos] = parts[ucasePart][ucasePos] - 32
-
 	// Insert digit in one of the parts at either the start or the end
 	// But the first blob cannot *start* with a digit, as per https://rmondello.com/2024/10/07/apple-passwords-generated-strong-password-format/
 	// Quote: "There are five positions for where the digit can go, which is on either side of the hyphen or at the end of the password."
@@ -73,6 +68,15 @@ func generatePassword() string {
 		// Replace at the end
 		parts[digitPart][5] = rune(randInt(10) + 48)
 	}
+
+	// Capitalize one random letter in a random part that isn't already a digit
+	ucasePart := randInt(3)
+	ucasePos := randInt(6)
+	for parts[ucasePart][ucasePos] >= '0' && parts[ucasePart][ucasePos] <= '9' {
+		ucasePart = randInt(3)
+		ucasePos = randInt(6)
+	}
+	parts[ucasePart][ucasePos] = parts[ucasePart][ucasePos] - 32
 
 	return string(parts[0]) + "-" + string(parts[1]) + "-" + string(parts[2])
 }

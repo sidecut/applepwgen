@@ -5,24 +5,6 @@
       "request": "launch",
       "args": [],
       "cwd": "${workspaceFolder:applepwgen}",
-      "name": "Debug applepwgen",
-      "program": "${workspaceFolder:applepwgen}/.build/debug/applepwgen",
-      "preLaunchTask": "swift: Build Debug applepwgen"
-    },
-    {
-      "type": "lldb",
-      "request": "launch",
-      "args": [],
-      "cwd": "${workspaceFolder:applepwgen}",
-      "name": "Release applepwgen",
-      "program": "${workspaceFolder:applepwgen}/.build/release/applepwgen",
-      "preLaunchTask": "swift: Build Release applepwgen"
-    },
-    {
-      "type": "lldb",
-      "request": "launch",
-      "args": [],
-      "cwd": "${workspaceFolder:applepwgen}",
       "name": "Debug applepw",
       "program": "${workspaceFolder:applepwgen}/.build/debug/applepw",
       "preLaunchTask": "swift: Build Debug applepw"

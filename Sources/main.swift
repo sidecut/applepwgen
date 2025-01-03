@@ -14,7 +14,7 @@ struct ApplePasswordGenerator: ParsableCommand {
     @Flag(name: .shortAndLong, help: "Skip newline after output")
     var skipNewline = false
 
-    @Flag(name: .long, help: "Use simple password style (XXXXX-XXXXX-XXXX)")
+    @Flag(name: .long, help: "Use simple password style (XXXXX-XXXXX-XXXXs)")
     var simple = false
 
     func run() throws {
@@ -47,11 +47,11 @@ func generateSimplePassword() -> String {
     let digits = Array("0123456789")
     let allChars = lowercaseLetters + digits
 
-    // Generate the pattern (5-5-4)
+    // Generate the pattern (5-5-5)
     var parts = ["", "", ""]
     parts[0] = String((0..<5).map { _ in allChars[randInt(allChars.count)] })
     parts[1] = String((0..<5).map { _ in allChars[randInt(allChars.count)] })
-    parts[2] = String((0..<4).map { _ in allChars[randInt(allChars.count)] })
+    parts[2] = String((0..<5).map { _ in allChars[randInt(allChars.count)] })
 
     // Convert to character arrays for manipulation
     var charParts = parts.map { Array($0) }

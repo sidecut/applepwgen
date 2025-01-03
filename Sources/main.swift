@@ -5,7 +5,7 @@ struct ApplePasswordGenerator: ParsableCommand {
     static let configuration = CommandConfiguration(
         commandName: "applepwgen",
         abstract: "Generate Apple-style memorable passwords.",
-        version: "1.0.0"
+        version: "1.1.0"
     )
 
     @Option(name: .shortAndLong, help: "Generate <count> passwords")

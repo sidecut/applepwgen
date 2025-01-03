@@ -1,5 +1,16 @@
 # applepwgen
 
+## How to build the Swift version (old)
+
+```bash
+make            # builds debug version
+make release    # builds release version
+make install    # installs release version
+
+make clean      # clean the build directory
+make uninstall  # uninstalls the release version
+```
+
 ## How to build the Swift version
 
 ```bash

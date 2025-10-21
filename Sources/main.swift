@@ -1,6 +1,13 @@
+// The Swift Programming Language
+// https://docs.swift.org/swift-book
+//
+// Swift Argument Parser
+// https://swiftpackageindex.com/apple/swift-argument-parser/documentation
+
 import ArgumentParser
 import SecurityFoundation
 
+@main
 struct ApplePasswordGenerator: ParsableCommand {
     static let configuration = CommandConfiguration(
         commandName: "applepwgen",
@@ -17,7 +24,7 @@ struct ApplePasswordGenerator: ParsableCommand {
     @Flag(name: .long, help: "Use simple password style (XXXXX-XXXXX-XXXXs)")
     var simple = false
 
-    func run() throws {
+    mutating func run() throws {
         // Generate all passwords except the last one
         for _ in 0..<count - 1 {
             print(simple ? generateSimplePassword() : generatePassword())
@@ -130,5 +137,3 @@ func generatePassword() -> String {
     // Join parts with hyphens
     return charParts.map { String($0) }.joined(separator: "-")
 }
-
-ApplePasswordGenerator.main()

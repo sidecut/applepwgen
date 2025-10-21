@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:applepw}",
+            "name": "Debug applepw",
+            "program": "${workspaceFolder:applepw}/.build/debug/applepw",
+            "preLaunchTask": "swift: Build Debug applepw"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:applepw}",
+            "name": "Release applepw",
+            "program": "${workspaceFolder:applepw}/.build/release/applepw",
+            "preLaunchTask": "swift: Build Release applepw"
+        }
+    ]
+}

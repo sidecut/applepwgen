@@ -24,7 +24,7 @@ struct ApplePasswordGenerator: ParsableCommand {
     @Flag(name: .long, help: "Use simple password style (XXXXX-XXXXX-XXXXs)")
     var simple = false
 
-    mutating func run() throws {
+    func run() throws {
         // Generate all passwords except the last one
         for _ in 0..<count - 1 {
             print(simple ? generateSimplePassword() : generatePassword())

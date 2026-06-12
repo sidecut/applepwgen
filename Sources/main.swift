@@ -31,15 +31,9 @@ struct ApplePasswordGenerator: ParsableCommand {
     }
 
     func run() throws {
-        // Generate all passwords except the last one
-        for _ in 0..<count - 1 {
-            print(simple ? generateSimplePassword() : generatePassword())
-        }
-
-        // Generate and print the last password
-        if count > 0 {
+        for i in 0..<count {
             let password = simple ? generateSimplePassword() : generatePassword()
-            if skipNewline {
+            if skipNewline && i == count - 1 {
                 print(password, terminator: "")
             } else {
                 print(password)

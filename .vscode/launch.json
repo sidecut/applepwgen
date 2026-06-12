@@ -19,26 +19,6 @@
       "preLaunchTask": "swift: Build Release applepw",
       "target": "applepw",
       "configuration": "release"
-    },
-    {
-      "type": "swift",
-      "request": "launch",
-      "args": [],
-      "cwd": "${workspaceFolder:applepwgen}",
-      "name": "Debug applepwgen",
-      "target": "applepwgen",
-      "configuration": "debug",
-      "preLaunchTask": "swift: Build Debug applepwgen"
-    },
-    {
-      "type": "swift",
-      "request": "launch",
-      "args": [],
-      "cwd": "${workspaceFolder:applepwgen}",
-      "name": "Release applepwgen",
-      "target": "applepwgen",
-      "configuration": "release",
-      "preLaunchTask": "swift: Build Release applepwgen"
     }
   ]
 }

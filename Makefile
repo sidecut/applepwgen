@@ -1,5 +1,5 @@
 # Define variables
-BINARY_NAME=applepwgen
+BINARY_NAME=applepw
 BUILD_DIR=.build
 RELEASE_DIR=$(BUILD_DIR)/release
 

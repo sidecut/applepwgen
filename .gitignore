@@ -8,5 +8,5 @@ DerivedData/
 .swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
 .netrc
 
-applepw
-applepw.exe
+applepwgen
+applepwgen.exe

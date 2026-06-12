@@ -15,7 +15,7 @@ make uninstall  # uninstalls the release version
 
 ```bash
 # Use either one
-swift build             # will build .build/debug/applepw
-swift build -c release  # will build .build/release/applepw
-swiftc Sources/main.swift -o applepw    # will build ./applepw
+swift build             # will build .build/debug/applepwgen
+swift build -c release  # will build .build/release/applepwgen
+swiftc Sources/main.swift -o applepwgen    # will build ./applepwgen
 ```

@@ -3,11 +3,11 @@
 ## Build Commands
 
 ```bash
-swift build                # debug build → .build/debug/applepw
-swift build -c release     # release build → .build/release/applepw
+swift build                # debug build → .build/debug/applepwgen
+swift build -c release     # release build → .build/release/applepwgen
 make                       # alias for debug build
 make release               # alias for release build
-make install               # builds release and installs to ~/.bin/applepw
+make install               # builds release and installs to ~/.bin/applepwgen
 make clean                 # removes .build/
 ```
 
@@ -15,7 +15,7 @@ There are no tests in this project.
 
 ## Architecture
 
-Single-file Swift CLI (`Sources/main.swift`) using [Swift Argument Parser](https://swiftpackageindex.com/apple/swift-argument-parser/documentation). The binary is named `applepw` (not `applepwgen`).
+Single-file Swift CLI (`Sources/main.swift`) using [Swift Argument Parser](https://swiftpackageindex.com/apple/swift-argument-parser/documentation). The binary is named `applepwgen`.
 
 **Entry point:** `@main struct ApplePasswordGenerator: ParsableCommand`
 

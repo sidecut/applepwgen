@@ -22,6 +22,7 @@ release:
 
 # Install the release build
 install: release
+	mkdir -p $(INSTALL_DIR)
 	install -s $(RELEASE_DIR)/$(BINARY_NAME) $(INSTALL_DIR)
 
 # Clean the build directory

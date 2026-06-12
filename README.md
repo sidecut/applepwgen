@@ -1,21 +1,15 @@
 # applepwgen
 
-## How to build the Swift version (old)
+## Build
 
 ```bash
-make            # builds debug version
-make release    # builds release version
-make install    # installs release version
+swift build             # debug   → .build/debug/applepwgen
+swift build -c release  # release → .build/release/applepwgen
 
-make clean      # clean the build directory
-make uninstall  # uninstalls the release version
-```
-
-## How to build the Swift version
-
-```bash
-# Use either one
-swift build             # will build .build/debug/applepwgen
-swift build -c release  # will build .build/release/applepwgen
-swiftc Sources/main.swift -o applepwgen    # will build ./applepwgen
+# Or via Makefile
+make                    # debug build
+make release            # release build
+make install            # release + install to ~/.bin/applepwgen
+make clean              # remove .build/
+make uninstall          # remove ~/.bin/applepwgen
 ```

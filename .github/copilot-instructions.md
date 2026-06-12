@@ -29,4 +29,3 @@ Single-file Swift CLI (`Sources/main.swift`) using [Swift Argument Parser](https
 
 - The `randInt` helper uses modulo bias (acceptable for password generation in this context; do not swap it for a different approach without understanding the tradeoff).
 - Password parts are always exactly 6 characters after digit insertion — the digit either replaces the last character or is inserted at the start with the last character removed.
-- The `go.mod` file exists but there are no Go source files; it can be ignored.

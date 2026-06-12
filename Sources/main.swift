@@ -5,7 +5,7 @@
 // https://swiftpackageindex.com/apple/swift-argument-parser/documentation
 
 import ArgumentParser
-import SecurityFoundation
+import Security
 
 @main
 struct ApplePasswordGenerator: ParsableCommand {

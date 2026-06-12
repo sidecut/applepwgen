@@ -23,7 +23,7 @@ Single-file Swift CLI (`Sources/main.swift`) using [Swift Argument Parser](https
 - Default: syllable-based memorable passwords — three 6-character parts, each two CVC syllables (`consonant-vowel-consonant`), joined by hyphens. One digit replaces a character in one part; one letter is randomly capitalized.
 - `--simple`: random alphanumeric in `XXXXX-XXXXX-XXXXX` pattern with one uppercase letter.
 
-**Randomness:** All randomness uses `SecRandomCopyBytes` from `SecurityFoundation` (cryptographically secure). The `randInt(_:)` helper wraps this for generating a uniform random int in `[0, n)`.
+**Randomness:** All randomness uses `SecRandomCopyBytes` from `Security` (cryptographically secure). The `randInt(_:)` helper wraps this for generating a uniform random int in `[0, n)`.
 
 ## Key Conventions
 

@@ -126,18 +126,19 @@ func generatePassword() -> String {
         charParts[digitPart][5] = Character(digit)
     }
 
-    // Capitalize one random letter in a random part
-    while true {
-        let ucasePart = randInt(3)
-        let ucasePos = randInt(6)
-
-        // continue if the character is not a letter
-        guard charParts[ucasePart][ucasePos].isLetter else {
-            continue
+    // Capitalize one random letter
+    var letterPositions: [(part: Int, pos: Int)] = []
+    for (partIndex, part) in charParts.enumerated() {
+        for (posIndex, char) in part.enumerated() {
+            if char.isLetter {
+                letterPositions.append((partIndex, posIndex))
+            }
         }
-
-        charParts[ucasePart][ucasePos] = Character(charParts[ucasePart][ucasePos].uppercased())
-        break
+    }
+    if !letterPositions.isEmpty {
+        let randomLetterPos = letterPositions[randInt(letterPositions.count)]
+        charParts[randomLetterPos.part][randomLetterPos.pos] =
+            Character(charParts[randomLetterPos.part][randomLetterPos.pos].uppercased())
     }
 
     // Join parts with hyphens

@@ -44,6 +44,7 @@ struct ApplePasswordGenerator: ParsableCommand {
 
 // Password generation functions
 func randInt(_ n: Int) -> Int {
+    precondition(n > 0, "randInt requires positive bound, got \(n)")
     var randomBytes = [UInt8](repeating: 0, count: 1)
     let returnCode = SecRandomCopyBytes(kSecRandomDefault, randomBytes.count, &randomBytes)
     guard returnCode == errSecSuccess else {

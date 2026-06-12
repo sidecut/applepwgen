@@ -21,7 +21,7 @@ struct ApplePasswordGenerator: ParsableCommand {
     @Flag(name: .shortAndLong, help: "Skip newline after output")
     var skipNewline = false
 
-    @Flag(name: .long, help: "Use simple password style (XXXXX-XXXXX-XXXXs)")
+    @Flag(name: .long, help: "Use simple password style (XXXXX-XXXXX-XXXXX)")
     var simple = false
 
     func validate() throws {

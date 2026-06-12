@@ -24,6 +24,12 @@ struct ApplePasswordGenerator: ParsableCommand {
     @Flag(name: .long, help: "Use simple password style (XXXXX-XXXXX-XXXXs)")
     var simple = false
 
+    func validate() throws {
+        guard count >= 1 else {
+            throw ValidationError("--count must be at least 1.")
+        }
+    }
+
     func run() throws {
         // Generate all passwords except the last one
         for _ in 0..<count - 1 {

@@ -6,8 +6,9 @@
       "args": [],
       "cwd": "${workspaceFolder:applepwgen}",
       "name": "Debug applepw",
-      "program": "${workspaceFolder:applepwgen}/.build/debug/applepw",
-      "preLaunchTask": "swift: Build Debug applepw"
+      "preLaunchTask": "swift: Build Debug applepw",
+      "target": "applepw",
+      "configuration": "debug"
     },
     {
       "type": "swift",
@@ -15,8 +16,9 @@
       "args": [],
       "cwd": "${workspaceFolder:applepwgen}",
       "name": "Release applepw",
-      "program": "${workspaceFolder:applepwgen}/.build/release/applepw",
-      "preLaunchTask": "swift: Build Release applepw"
+      "preLaunchTask": "swift: Build Release applepw",
+      "target": "applepw",
+      "configuration": "release"
     }
   ]
 }
